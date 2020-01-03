@@ -46,7 +46,7 @@ from transformers import (
     XLNetForQuestionAnswering,
     XLNetTokenizer,
     get_linear_schedule_with_warmup,
-    SmallBertForQuestionAnswering,
+    #SmallBertForQuestionAnswering,
 )
 
 from utils_squad import (
@@ -82,7 +82,7 @@ MODEL_CLASSES = {
     "xlnet": (XLNetConfig, XLNetForQuestionAnswering, XLNetTokenizer),
     "xlm": (XLMConfig, XLMForQuestionAnswering, XLMTokenizer),
     "distilbert": (DistilBertConfig, DistilBertForQuestionAnswering, DistilBertTokenizer),
-    "smallbert" : (DistilBertConfig, SmallBertForQuestionAnswering, DistilBertTokenizer,)
+    #"smallbert" : (DistilBertConfig, SmallBertForQuestionAnswering, DistilBertTokenizer,)
 }
 
 
