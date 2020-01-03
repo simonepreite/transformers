@@ -219,7 +219,7 @@ if is_torch_available():
         DistilBertForTokenClassification,
         DISTILBERT_PRETRAINED_MODEL_ARCHIVE_MAP,
     )
-	from .modeling_smallbert import (
+    from .modeling_smallbert import (
         SmallBertPreTrainedModel,
         SmallBertForMaskedLM,
         SmallBertModel,
