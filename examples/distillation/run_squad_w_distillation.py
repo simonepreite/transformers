@@ -46,7 +46,9 @@ from transformers import (
     XLNetForQuestionAnswering,
     XLNetTokenizer,
     get_linear_schedule_with_warmup,
-    #SmallBertForQuestionAnswering,
+	SmallBertConfig,
+    SmallBertForQuestionAnswering,
+	SmallBertTokenizer,
 )
 
 from utils_squad import (
@@ -82,7 +84,7 @@ MODEL_CLASSES = {
     "xlnet": (XLNetConfig, XLNetForQuestionAnswering, XLNetTokenizer),
     "xlm": (XLMConfig, XLMForQuestionAnswering, XLMTokenizer),
     "distilbert": (DistilBertConfig, DistilBertForQuestionAnswering, DistilBertTokenizer),
-    #"smallbert" : (DistilBertConfig, SmallBertForQuestionAnswering, DistilBertTokenizer,)
+    "smallbert" : (SmallBertConfig, SmallBertForQuestionAnswering, SmallBertTokenizer,)
 }
 
 
@@ -175,7 +177,7 @@ def train(args, train_dataset, model, tokenizer, teacher=None):
                 "start_positions": batch[3],
                 "end_positions": batch[4],
             }
-            if args.model_type != "distilbert":
+            if args.model_type != "distilbert" and args.model_type != "smallbert":
                 inputs["token_type_ids"] = None if args.model_type == "xlm" else batch[2]
             if args.model_type in ["xlnet", "xlm"]:
                 inputs.update({"cls_index": batch[5], "p_mask": batch[6]})

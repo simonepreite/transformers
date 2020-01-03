@@ -324,7 +324,7 @@ class Transformer(nn.Module):
 
 
 # INTERFACE FOR ENCODER AND TASK SPECIFIC MODEL #
-class DistilBertPreTrainedModel(PreTrainedModel):
+class SmallBertPreTrainedModel(PreTrainedModel):
     """ An abstract class to handle weights initialization and
         a simple interface for downloading and loading pretrained models.
     """
@@ -399,7 +399,7 @@ DISTILBERT_INPUTS_DOCSTRING = r"""
     DISTILBERT_START_DOCSTRING,
     DISTILBERT_INPUTS_DOCSTRING,
 )
-class SmallBertModel(DistilBertPreTrainedModel):
+class SmallBertModel(SmallBertPreTrainedModel):
     r"""
     Outputs: `Tuple` comprising various elements depending on the configuration (config) and inputs:
         **last_hidden_state**: ``torch.FloatTensor`` of shape ``(batch_size, sequence_length, hidden_size)``
@@ -492,7 +492,7 @@ class SmallBertModel(DistilBertPreTrainedModel):
     DISTILBERT_START_DOCSTRING,
     DISTILBERT_INPUTS_DOCSTRING,
 )
-class SmallBertForMaskedLM(DistilBertPreTrainedModel):
+class SmallBertForMaskedLM(SmallBertPreTrainedModel):
     r"""
         **masked_lm_labels**: (`optional`) ``torch.LongTensor`` of shape ``(batch_size, sequence_length)``:
             Labels for computing the masked language modeling loss.
@@ -639,7 +639,7 @@ class SmallBertForSequenceClassification(DistilBertPreTrainedModel):
     DISTILBERT_START_DOCSTRING,
     DISTILBERT_INPUTS_DOCSTRING,
 )
-class SmallBertForQuestionAnswering(DistilBertPreTrainedModel):
+class SmallBertForQuestionAnswering(SmallBertPreTrainedModel):
     r"""
         **start_positions**: (`optional`) ``torch.LongTensor`` of shape ``(batch_size,)``:
             Labels for position (index) of the start of the labelled span for computing the token classification loss.
