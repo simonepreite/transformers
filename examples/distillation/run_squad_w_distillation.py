@@ -288,7 +288,7 @@ def evaluate(args, model, tokenizer, prefix=""):
         batch = tuple(t.to(args.device) for t in batch)
         with torch.no_grad():
             inputs = {"input_ids": batch[0], "attention_mask": batch[1]}
-            if args.model_type != "distilbert":
+            if args.model_type != "distilbert" and args.model_type != "smallbert":
                 inputs["token_type_ids"] = None if args.model_type == "xlm" else batch[2]  # XLM don't use segment_ids
             example_indices = batch[3]
             if args.model_type in ["xlnet", "xlm"]:
