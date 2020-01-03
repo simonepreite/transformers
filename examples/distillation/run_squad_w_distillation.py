@@ -46,6 +46,7 @@ from transformers import (
     XLNetForQuestionAnswering,
     XLNetTokenizer,
     get_linear_schedule_with_warmup,
+    SmallBertForQuestionAnswering,
 )
 
 from utils_squad import (
@@ -73,7 +74,7 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 ALL_MODELS = sum(
-    (tuple(conf.pretrained_config_archive_map.keys()) for conf in (BertConfig, XLNetConfig, XLMConfig)), ()
+    (tuple(conf.pretrained_config_archive_map.keys()) for conf in (BertConfig, XLNetConfig, XLMConfig, DistilBertConfig)), ()
 )
 
 MODEL_CLASSES = {
@@ -81,6 +82,7 @@ MODEL_CLASSES = {
     "xlnet": (XLNetConfig, XLNetForQuestionAnswering, XLNetTokenizer),
     "xlm": (XLMConfig, XLMForQuestionAnswering, XLMTokenizer),
     "distilbert": (DistilBertConfig, DistilBertForQuestionAnswering, DistilBertTokenizer),
+	"smallbert" : (DistilBertConfig, SmallBertForQuestionAnswering, DistilBertTokenizer,)
 }
 
 
@@ -173,7 +175,7 @@ def train(args, train_dataset, model, tokenizer, teacher=None):
                 "start_positions": batch[3],
                 "end_positions": batch[4],
             }
-            if args.model_type != "distilbert":
+            if args.model_type != "distilbert" if args.model_type != "smallbert":
                 inputs["token_type_ids"] = None if args.model_type == "xlm" else batch[2]
             if args.model_type in ["xlnet", "xlm"]:
                 inputs.update({"cls_index": batch[5], "p_mask": batch[6]})
@@ -696,7 +698,7 @@ def main():
         assert args.teacher_name_or_path is not None
         assert args.alpha_ce > 0.0
         assert args.alpha_ce + args.alpha_squad > 0.0
-        assert args.teacher_type != "distilbert", "We constraint teachers not to be of type DistilBERT."
+        #assert args.teacher_type != "distilbert", "We constraint teachers not to be of type DistilBERT."
         teacher_config_class, teacher_model_class, _ = MODEL_CLASSES[args.teacher_type]
         teacher_config = teacher_config_class.from_pretrained(
             args.teacher_name_or_path, cache_dir=args.cache_dir if args.cache_dir else None
