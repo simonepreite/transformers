@@ -680,7 +680,7 @@ class SmallBertForQuestionAnswering(SmallBertPreTrainedModel):
     def __init__(self, config):
         super(SmallBertForQuestionAnswering, self).__init__(config)
 
-        self.smallbertbert = SmallBertModel(config)
+        self.smallbert = SmallBertModel(config)
         self.qa_outputs = nn.Linear(config.dim, config.num_labels)
         assert config.num_labels == 2
         self.dropout = nn.Dropout(config.qa_dropout)
