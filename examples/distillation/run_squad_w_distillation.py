@@ -175,7 +175,7 @@ def train(args, train_dataset, model, tokenizer, teacher=None):
                 "start_positions": batch[3],
                 "end_positions": batch[4],
             }
-            if args.model_type != "distilbert" or args.model_type != "smallbert":
+            if args.model_type != "distilbert":
                 inputs["token_type_ids"] = None if args.model_type == "xlm" else batch[2]
             if args.model_type in ["xlnet", "xlm"]:
                 inputs.update({"cls_index": batch[5], "p_mask": batch[6]})
