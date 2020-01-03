@@ -25,6 +25,7 @@ from .configuration_bert import BERT_PRETRAINED_CONFIG_ARCHIVE_MAP, BertConfig
 from .configuration_camembert import CAMEMBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, CamembertConfig
 from .configuration_ctrl import CTRL_PRETRAINED_CONFIG_ARCHIVE_MAP, CTRLConfig
 from .configuration_distilbert import DISTILBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, DistilBertConfig
+from .configuration_smallbert import DISTILBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, SmallBertConfig
 from .configuration_gpt2 import GPT2_PRETRAINED_CONFIG_ARCHIVE_MAP, GPT2Config
 from .configuration_mmbt import MMBTConfig
 from .configuration_openai import OPENAI_GPT_PRETRAINED_CONFIG_ARCHIVE_MAP, OpenAIGPTConfig
@@ -108,6 +109,7 @@ from .tokenization_bert_japanese import BertJapaneseTokenizer, CharacterTokenize
 from .tokenization_camembert import CamembertTokenizer
 from .tokenization_ctrl import CTRLTokenizer
 from .tokenization_distilbert import DistilBertTokenizer
+from .tokenization_smallbert import SmallBertTokenizer
 from .tokenization_gpt2 import GPT2Tokenizer, GPT2TokenizerFast
 from .tokenization_openai import OpenAIGPTTokenizer
 from .tokenization_roberta import RobertaTokenizer
@@ -215,6 +217,15 @@ if is_torch_available():
         DistilBertForSequenceClassification,
         DistilBertForQuestionAnswering,
         DistilBertForTokenClassification,
+        DISTILBERT_PRETRAINED_MODEL_ARCHIVE_MAP,
+    )
+	from .modeling_smallbert import (
+        SmallBertPreTrainedModel,
+        SmallBertForMaskedLM,
+        SmallBertModel,
+        SmallBertForSequenceClassification,
+        SmallBertForQuestionAnswering,
+        SmallBertForTokenClassification,
         DISTILBERT_PRETRAINED_MODEL_ARCHIVE_MAP,
     )
     from .modeling_camembert import (
