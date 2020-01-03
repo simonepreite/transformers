@@ -599,7 +599,7 @@ class SmallBertForSequenceClassification(SmallBertPreTrainedModel):
     """
 
     def __init__(self, config):
-        super(DistilBertForSequenceClassification, self).__init__(config)
+        super(SmallBertForSequenceClassification, self).__init__(config)
         self.num_labels = config.num_labels
 
         self.distilbert = DistilBertModel(config)
@@ -696,7 +696,7 @@ class SmallBertForQuestionAnswering(SmallBertPreTrainedModel):
         start_positions=None,
         end_positions=None,
     ):
-        smallbert_output = self.distilbert(
+        smallbert_output = self.smallbert(
             input_ids=input_ids, attention_mask=attention_mask, head_mask=head_mask, inputs_embeds=inputs_embeds
         )
         hidden_states = smallbert_output[0]  # (bs, max_query_len, dim)
@@ -734,7 +734,7 @@ class SmallBertForQuestionAnswering(SmallBertPreTrainedModel):
     DISTILBERT_START_DOCSTRING,
     DISTILBERT_INPUTS_DOCSTRING,
 )
-class DistilBertForTokenClassification(DistilBertPreTrainedModel):
+class SmallBertForTokenClassification(SmallBertPreTrainedModel):
     r"""
         **labels**: (`optional`) ``torch.LongTensor`` of shape ``(batch_size, sequence_length)``:
             Labels for computing the token classification loss.
@@ -765,10 +765,10 @@ class DistilBertForTokenClassification(DistilBertPreTrainedModel):
     """
 
     def __init__(self, config):
-        super(DistilBertForTokenClassification, self).__init__(config)
+        super(SmallBertForTokenClassification, self).__init__(config)
         self.num_labels = config.num_labels
 
-        self.distilbert = DistilBertModel(config)
+        self.distilbert = SmallBertModel(config)
         self.dropout = nn.Dropout(config.dropout)
         self.classifier = nn.Linear(config.hidden_size, config.num_labels)
 
