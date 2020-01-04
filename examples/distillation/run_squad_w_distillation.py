@@ -775,8 +775,8 @@ def main():
             results.update(result)
 
     logger.info("Results: {}".format(results))
-    with open(args.output_dir+"f1_em_scores.txt", "w+") as results:
-        print("Results: {}".format(results), file=results)
+    with open(args.output_dir+"f1_em_scores.txt", "w+") as f1_em_scores:
+        print("Results: {}".format(results), file=f1_em_scores)
 
     return results
 
