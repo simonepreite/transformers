@@ -84,7 +84,7 @@ MODEL_CLASSES = {
     "xlnet": (XLNetConfig, XLNetForQuestionAnswering, XLNetTokenizer),
     "xlm": (XLMConfig, XLMForQuestionAnswering, XLMTokenizer),
     "distilbert": (DistilBertConfig, DistilBertForQuestionAnswering, DistilBertTokenizer),
-    "smallbert" : (SmallBertConfig, SmallBertForQuestionAnswering, SmallBertTokenizer,)
+    "smallbert" : (SmallBertConfig, SmallBertForQuestionAnswering, SmallBertTokenizer),
 }
 
 

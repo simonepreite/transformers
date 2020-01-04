@@ -40,6 +40,9 @@ from transformers import (
     RobertaConfig,
     RobertaForMaskedLM,
     RobertaTokenizer,
+	SmallBertConfig, 
+	SmallBertForQuestionAnswering, 
+	SmallBertTokenizer,
 )
 from utils import git_log, init_gpu_params, logger, set_seed
 
@@ -49,6 +52,7 @@ MODEL_CLASSES = {
     "roberta": (RobertaConfig, RobertaForMaskedLM, RobertaTokenizer),
     "bert": (BertConfig, BertForMaskedLM, BertTokenizer),
     "gpt2": (GPT2Config, GPT2LMHeadModel, GPT2Tokenizer),
+	"smallbert" : (SmallBertConfig, SmallBertForQuestionAnswering, SmallBertTokenizer),
 }
 
 
@@ -60,7 +64,7 @@ def sanity_checks(args):
     assert (args.alpha_mlm > 0.0 and args.alpha_clm == 0.0) or (args.alpha_mlm == 0.0 and args.alpha_clm > 0.0)
     if args.mlm:
         assert os.path.isfile(args.token_counts)
-        assert (args.student_type in ["roberta", "distilbert"]) and (args.teacher_type in ["roberta", "bert"])
+        assert (args.student_type in ["roberta", "distilbert", "smallbert"]) and (args.teacher_type in ["roberta", "bert"])
     else:
         assert (args.student_type in ["gpt2"]) and (args.teacher_type in ["gpt2"])
 
@@ -111,9 +115,9 @@ def main():
     parser.add_argument(
         "--student_type",
         type=str,
-        choices=["distilbert", "roberta", "gpt2"],
+        choices=["distilbert", "roberta", "gpt2", "smallbert"],
         required=True,
-        help="The student type (DistilBERT, RoBERTa).",
+        help="The student type (DistilBERT, RoBERTa, smallBERT).",
     )
     parser.add_argument("--student_config", type=str, required=True, help="Path to the student configuration.")
     parser.add_argument(
