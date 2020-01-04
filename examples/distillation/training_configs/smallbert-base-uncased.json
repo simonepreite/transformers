@@ -11,6 +11,5 @@
 	"sinusoidal_pos_embds": true,
 	"tie_weights_": true,
 	"vocab_size": 30522,
-	"hidden_dim": 4 * 768,
   }
   
