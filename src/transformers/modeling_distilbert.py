@@ -682,10 +682,10 @@ class DistilBertForQuestionAnswering(DistilBertPreTrainedModel):
 
         self.distilbert = DistilBertModel(config)
         self.middleOut1 = nn.Linear(config.dim, 1024)
-		self.middleOut2 = nn.Linear(1024, 768)
-		self.middleOut3 = nn.Linear(768, 384)
-		self.qa_outputs = nn.Linear(384, config.num_labels)
-		self.activationFun = gelu()
+        self.middleOut2 = nn.Linear(1024, 768)
+        self.middleOut3 = nn.Linear(768, 384)
+        self.qa_outputs = nn.Linear(384, config.num_labels)
+        self.activationFun = gelu()
         assert config.num_labels == 2
         self.dropout = nn.Dropout(config.qa_dropout)
 
@@ -704,12 +704,12 @@ class DistilBertForQuestionAnswering(DistilBertPreTrainedModel):
             input_ids=input_ids, attention_mask=attention_mask, head_mask=head_mask, inputs_embeds=inputs_embeds
         )
         hidden_states = distilbert_output[0]  # (bs, max_query_len, dim)
-		midOut1 = self.dropout(self.activationFun(self.mmiddleOut1(hidden_states)))
-		midOut2 = self.dropout(self.activationFun(self.mmiddleOut2(midOut1)))
-		midOut3 = self.dropout(self.activationFun(self.mmiddleOut3(midOut2 + hidden_states)))
-		
-        hidden_states = self.dropout(hidden_states)  # (bs, max_query_len, dim)
-        logits = self.qa_outputs(hidden_states)  # (bs, max_query_len, 2)
+        midOut1 = self.dropout(self.activationFun(self.mmiddleOut1(hidden_states)))
+        midOut2 = self.dropout(self.activationFun(self.mmiddleOut2(midOut1)))
+        midOut3 = self.dropout(self.activationFun(self.mmiddleOut3(midOut2 + hidden_states)))
+        
+        
+        logits = self.qa_outputs(midOut3)  # (bs, max_query_len, 2)
         start_logits, end_logits = logits.split(1, dim=-1)
         start_logits = start_logits.squeeze(-1)  # (bs, max_query_len)
         end_logits = end_logits.squeeze(-1)  # (bs, max_query_len)
