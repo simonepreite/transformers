@@ -703,9 +703,9 @@ class DistilBertForQuestionAnswering(DistilBertPreTrainedModel):
             input_ids=input_ids, attention_mask=attention_mask, head_mask=head_mask, inputs_embeds=inputs_embeds
         )
         hidden_states = distilbert_output[0]  # (bs, max_query_len, dim)
-        midOut1 = self.dropout(gelu(self.mmiddleOut1(hidden_states)))
-        midOut2 = self.dropout(gelu(self.mmiddleOut2(midOut1)))
-        midOut3 = self.dropout(gelu(self.mmiddleOut3(midOut2 + hidden_states)))
+        midOut1 = self.dropout(gelu(self.middleOut1(hidden_states)))
+        midOut2 = self.dropout(gelu(self.middleOut2(midOut1)))
+        midOut3 = self.dropout(gelu(self.middleOut3(midOut2 + hidden_states)))
         
         
         logits = self.qa_outputs(midOut3)  # (bs, max_query_len, 2)
