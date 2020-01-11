@@ -49,9 +49,9 @@ from transformers import (
 	SmallBertConfig,
     SmallBertForQuestionAnswering,
 	SmallBertTokenizer,
-	AlbertConfig, 
-	AlbertForQuestionAnswering, 
-	AlbertTokenizer,
+	RobertaConfig, 
+	RobertaForQuestionAnswering, 
+	RobertaTokenizer,
 )
 
 from utils_squad import (
