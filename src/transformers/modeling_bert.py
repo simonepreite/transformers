@@ -1408,8 +1408,12 @@ class BertForQuestionAnswering(BertPreTrainedModel):
         self.num_labels = config.num_labels
 
         self.bert = BertModel(config)
-        self.qa_outputs = nn.Linear(config.hidden_size, config.num_labels)
-
+        self.middleOut1 = nn.Linear(config.hidden_size, 1024)
+        self.middleOut2 = nn.Linear(1024, 768)
+        self.middleOut3 = nn.Linear(768, 384)
+        self.qa_outputs = nn.Linear(384, config.num_labels)
+        assert config.num_labels == 2
+        self.dropout = nn.Dropout(config.hidden_dropout_prob)
         self.init_weights()
 
     def forward(
@@ -1432,10 +1436,14 @@ class BertForQuestionAnswering(BertPreTrainedModel):
             head_mask=head_mask,
             inputs_embeds=inputs_embeds,
         )
-
+        
         sequence_output = outputs[0]
-
-        logits = self.qa_outputs(sequence_output)
+        midOut1 = self.dropout(gelu_new(self.middleOut1(sequence_output)))
+        midOut2 = self.dropout(gelu_new(self.middleOut2(midOut1)))
+        midOut3 = self.dropout(gelu_new(self.middleOut3(midOut2 + sequence_output)))
+        
+        
+        logits = self.qa_outputs(midOut3)
         start_logits, end_logits = logits.split(1, dim=-1)
         start_logits = start_logits.squeeze(-1)
         end_logits = end_logits.squeeze(-1)
